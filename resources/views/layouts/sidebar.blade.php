@@ -99,6 +99,11 @@
               <i class="ni ni-circle-08 text-red"></i> User Manager
             </a>
           </li>
+          <li class="nav-item">
+              <a class="nav-link" href="{{ route('pegawai.detail') }}">
+                <i class="ni ni-key-25 text-info"></i> Data Pegawai
+              </a>
+            </li>
           @role('administrator')
             <li class="nav-item">
               <a class="nav-link" href="{{ route('wilkers.index') }}">

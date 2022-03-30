@@ -34,25 +34,25 @@
           <!-- Navbar items -->
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="../index.html">
+              <a class="nav-link nav-link-icon" href="http://sumbawa.karantina.pertanian.go.id/">
                 <i class="ni ni-planet"></i>
                 <span class="nav-link-inner--text">Website</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="../examples/register.html">
+              <a class="nav-link nav-link-icon" href="http://e-office.eqosistem.com/login">
                 <i class="ni ni-circle-08"></i>
                 <span class="nav-link-inner--text">E-office</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="../examples/login.html">
+              <a class="nav-link nav-link-icon" href="http://ipnbk.eqosistem.com/">
                 <i class="ni ni-key-25"></i>
-                <span class="nav-link-inner--text">E-Pemantauan</span>
+                <span class="nav-link-inner--text">E-IPNBK</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="../examples/profile.html">
+              <a class="nav-link nav-link-icon" href="http://lab.eqosistem.com/">
                 <i class="ni ni-single-02"></i>
                 <span class="nav-link-inner--text">Sile</span>
               </a>

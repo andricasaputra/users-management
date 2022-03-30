@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\MasterPegawai as Pegawai;
-use App\Wilker;
+use App\Models\Wilker;
 use Illuminate\Http\Request;
 
 class WilkerController extends Controller
