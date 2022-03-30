@@ -27,6 +27,13 @@ class PegawaiController extends Controller
     	return $this->pegawai->show($request);
     }
 
+    public function detailPegawai($id = 3)
+    {
+        $t = \App\Models\User::find($id);
+
+        return response()->json($t);
+    }
+
     public function detail($nip)
     {
         $pegawai = $this->pegawai->detail($nip);

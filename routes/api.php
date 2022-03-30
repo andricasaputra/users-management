@@ -1,5 +1,7 @@
 <?php
 
+Route::get('pegawai/detail/{id}', 'PegawaiController@detailPegawai');
+
 Route::middleware('auth:api')->group(function(){
 
 	Route::namespace('auth')->group(function(){
@@ -18,4 +20,6 @@ Route::middleware('auth:api')->group(function(){
 	Route::get('/users/roles', 'UsersController@showRoles')->name('users.api.roles');
 
 });
+
+
 
