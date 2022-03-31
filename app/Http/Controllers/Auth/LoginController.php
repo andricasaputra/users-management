@@ -54,9 +54,9 @@ class LoginController extends Controller
 
         $request->merge($decode);
 
-        $this->validateLogin($request);
+        $credentials = $this->validateLogin($request);
 
-        if(! Auth::attempt($this->credentials($request))){
+        if(! Auth::attempt($credentials)){
 
             return response()->json([
                 'error' => true,
@@ -88,10 +88,20 @@ class LoginController extends Controller
 
     protected function validateLogin(Request $request)
     {
-        $request->validate([
+        $credentials = $request->validate([
             $this->username() => 'required|string',
             'password' => 'required|string',
         ]);
+        
+        if (str_contains($credentials['username'], '@pertanian.go.id')) {
+            $credentials['username'] = str_replace('@pertanian.go.id', '', $credentials['username']);
+        }
+
+        if (str_contains($credentials['username'], '-')) {
+            $credentials['username'] = str_replace('-', '_', $credentials['username']);
+        }
+
+        return $credentials;
     }
 
     /**
