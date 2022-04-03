@@ -28,10 +28,10 @@ class PegawaiController extends Controller
     }
 
     public function detailPegawai($id = 3)
-    {
-        $t = \App\Models\User::find($id);
+    {   
+        $user = \App\Models\User::find($id);
 
-        return response()->json($t);
+        return response()->json($user);
     }
 
     public function detail($nip = null)

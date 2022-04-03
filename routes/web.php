@@ -6,7 +6,7 @@ Route::namespace('Auth')->group(function(){
 	Route::get('/login', 'LoginController@showLoginForm')->name('login.form');
 	Route::post('/login', 'LoginController@login')->name('login');
 	Route::get('/logout', 'LoginController@logout')->name('logout');
-	Route::post('/login/e-office', 'LoginController@eOfficeLogin')->name('e-office.login');
+	Route::post('/sso/{secret_key?}', 'LoginController@autoLogin')->name('sso.login');
 });
 
 Route::middleware('auth')->group(function(){

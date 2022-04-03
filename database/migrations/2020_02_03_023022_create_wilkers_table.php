@@ -16,6 +16,7 @@ class CreateWilkersTable extends Migration
         Schema::create('wilkers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nama_wilker');
+            $table->string('alias');
             $table->timestamps();
         });
     }

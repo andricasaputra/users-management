@@ -12,8 +12,13 @@
         @include('includes/message')
         <div class="card shadow mt-4">
             <h1>
-                <a href="{{ route('users.index') }}" class="btn btn-default pull-right">Users</a>
-                <a href="{{ route('roles.index') }}" class="btn btn-default pull-right">Roles</a>
+                <div class="col-12">
+                    <a href="{{ route('users.index') }}" class="btn btn-default pull-right">Users</a>
+                    <a href="{{ route('roles.index') }}" class="btn btn-default pull-right">Roles</a>
+                    <a href="{{ route('permissions.create') }}" class="btn btn-success">Add Permission</a>
+                    </div>
+                </div>
+               
             </h1>
             <hr>
             <div class="table-responsive">
@@ -45,12 +50,6 @@
                         @endforelse
                     </tbody>
                 </table>
-            </div>
-
-            <div class="row">
-                <div class="col-4 mt-2 mb-2">
-                    <a href="{{ route('permissions.create') }}" class="btn btn-success">Add Permission</a>
-                </div>
             </div>
         </div>
     </div>

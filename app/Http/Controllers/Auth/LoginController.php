@@ -6,6 +6,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
@@ -32,6 +33,8 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+
+    protected $user;
 
     /**
      * Create a new controller instance.
@@ -67,22 +70,18 @@ class LoginController extends Controller
             
         $user = $request->user();
 
-        $tokenResult = $user->createToken('Personal Access Token');
-
-        $token = $tokenResult->token;
-
-        if ($request->remember_me){
-             $token->expires_at = Carbon::now()->addWeeks(1);
+        if (is_null($user->api_token)) {
+            $user->api_token = Str::random(80);
+            $user->save();
         }
 
         return response()->json([
             'error' => false,
             'message' => 'Successfully Login',
             'redirect' => route('home'),
-            'access_token' => $tokenResult->accessToken,
+            'access_token' => auth()->user()->api_token,
             'token_type' => 'Bearer',
-            'status' => 'Authenticated',
-            'expires_at' => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString()
+            'status' => 'Authenticated'
         ], 200);
     }
 
@@ -111,11 +110,6 @@ class LoginController extends Controller
      */
     public function logout(Request $request)
     {
-        if (auth()->check()) {
-            auth()->user()->token()->update([
-                'revoked' => 1
-            ]);
-        }
 
         $this->guard()->logout();
 
@@ -134,9 +128,9 @@ class LoginController extends Controller
 
     public function eOfficeLogin(Request $request)
     {
-        $user = User::findOrFail($request->getContent());
+        $this->user = User::whereApiToken($request->getContent())->first();
 
-        if(!$user){
+        if(!$this->user){
             return response()->json([
                 'error' => true,
                 'message' => 'Unauthorized',
@@ -144,27 +138,49 @@ class LoginController extends Controller
             ], 401);
         }
 
-        auth()->login($user);
-
-        $tokenResult = $user->createToken('Personal Access Token');
-
-        $token = $tokenResult->token;
-
-        if ($request->remember_me){
-             $token->expires_at = Carbon::now()->addWeeks(1);
+        if (! Auth::loginUsingId($this->user->id)) {
+            return response()->json([
+                'error' => true,
+                'message' => 'Unauthorized',
+                'status' => 'Unauthenticated',
+            ], 401);
         }
 
-        $token->save();
+        return response()->json([
+            'error' => false,
+            'message' => 'Successfully Login',
+            'redirect' => route('login') .'?_sk='. auth()->user()->api_token,
+            'access_token' => auth()->user()->api_token,
+            'token_type' => 'Bearer',
+            'status' => 'Authenticated'
+        ], 200);
+    }
+
+    public function autoLogin(Request $request)
+    {
+        $this->apiToken = $request->secret_key;
+
+        $this->user = User::whereApiToken($this->apiToken)->first();
+
+        if(!$this->user){
+            return response()->json([
+                'error' => true,
+                'message' => 'Unauthorized',
+                'status' => 'Unauthenticated',
+            ], 401);
+        }
+
+        auth()->login($this->user);
 
         return response()->json([
             'error' => false,
             'message' => 'Successfully Login',
             'redirect' => route('home'),
-            'access_token' => $tokenResult->accessToken,
+            'api_token' => $this->apiToken,
             'token_type' => 'Bearer',
-            'status' => 'Authenticated',
-            'expires_at' => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString()
+            'status' => 'Authenticated'
         ], 200);
+
     }
 
 }

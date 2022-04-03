@@ -1,12 +1,8 @@
 <?php
 
-Route::get('pegawai/detail/{id}', 'PegawaiController@detailPegawai');
+Route::post('/login/e-office', 'Auth\\LoginController@eOfficeLogin')->name('e-office.login');
 
 Route::middleware('auth:api')->group(function(){
-
-	Route::namespace('auth')->group(function(){
-		Route::post('/auth', 'ApiLoginController@login');
-	});
 
 	Route::get('/users', 'UsersController@show')->name('users.api');
 	Route::post('/users/table', 'UsersController@showTable')->name('users.api.table');
@@ -21,5 +17,6 @@ Route::middleware('auth:api')->group(function(){
 
 });
 
+Route::get('pegawai/detail/{id}', 'PegawaiController@detailPegawai');
 
 

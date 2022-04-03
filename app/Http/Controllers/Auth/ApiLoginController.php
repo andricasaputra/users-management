@@ -9,7 +9,9 @@ use App\Models\User;
 class ApiLoginController extends Controller
 {
     public function login(Request $request)
-    {
-    	return User::findOrFail($request->user()->id);
+    {//$request = $request;
+        $token = $request->all();
+        //return json_encode($token['api_token']);
+    	return User::whereApiToken($token['api_token'])->first();
     }
 }

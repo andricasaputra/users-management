@@ -41,7 +41,7 @@
   <script>
     $(document).ready(function () {
 
-        const token = localStorage.getItem('access_token');
+        const token = '{{ auth()->user()->api_token }}';
 
         const table = $('#users').DataTable({
 

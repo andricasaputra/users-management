@@ -145,7 +145,6 @@
             const data = await response.json();
 
             if (response.ok) {
-                saveToken(data.access_token);
                 window.location = data.redirect;
             }else if(response.status == 401) {
                throw new Error('Username atau password salah'); 
@@ -156,18 +155,64 @@
         }catch(err){
             const container = document.querySelector('#message-flash');
             container.innerHTML = `<div class="alert alert-danger">${err.message}</div>`;
+            button.innerHTML = 'Sign in';
+            button.disabled = false;
         }
-    }
-
-    function saveToken(token)
-    {
-        localStorage.setItem('access_token', token);
     }
 
     document.querySelector('#submitForm').addEventListener('submit', submitLogin);
 
   </script>
 
-</body>
+  <script>
+    function getQueryParams()
+    {
+      return new Proxy(new URLSearchParams(window.location.search), {
+      get: (searchParams, prop) => searchParams.get(prop),
+      });
+    }
 
+    const autoLogin = async () =>
+          {
+    try{
+
+      const params = getQueryParams();
+
+      let _sk = params._sk; 
+
+      console.log(_sk);
+      const headers = {
+          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+      };
+
+      const response = await fetch(`{{ route('sso.login') }}/${_sk}`, {
+          method: "POST",
+          headers: headers
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+          window.location = data.redirect;
+      }else if(response.status == 401) {
+         throw new Error('Username atau password salah'); 
+      }else {
+         throw new Error(response.statusText); 
+          }
+
+      }catch(err){
+          
+        container.innerHTML = `<div class="alert alert-danger">${err.message}</div>`;
+          
+      }
+    }
+
+    const params = getQueryParams();
+
+    let _sk = params._sk; 
+
+    if (_sk && '{{ !session()->has('logout') }}') autoLogin();
+  </script>
+
+  </body>
 </html>

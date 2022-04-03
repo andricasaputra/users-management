@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\User;
 use App\Imports\UsersImport;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Crypt;
 use App\Http\Resources\User as UserApi;
@@ -31,7 +32,8 @@ class UserRepository extends BaseRepository
     	$user = User::create([
     		'username' => $request->username,
     		'password' => bcrypt($request->password),
-            'e_password' => Crypt::encrypt($request->password)
+            'e_password' => Crypt::encrypt($request->password),
+            'api_token' => Str::random(80),
     	]);
 
         $user->wilkers()->attach($request->wilker);
