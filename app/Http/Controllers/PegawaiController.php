@@ -36,15 +36,19 @@ class PegawaiController extends Controller
 
     public function detail($nip = null)
     {
-        if (auth()->user()->hasRole('administrator')) {
-            return $this->index();
-        }
 
         $nip = $nip ?? auth()->user()->pegawai->nip;
 
         $pegawai = $this->pegawai->detail($nip);
 
         return view('pegawai.show')->withPegawai($pegawai);
+    }
+
+    public function detailAdmin()
+    {
+        if (auth()->user()->hasRole('administrator')) {
+            return $this->index();
+        }
     }
 
     public function showTable(Request $request)

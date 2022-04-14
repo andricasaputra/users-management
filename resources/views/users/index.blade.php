@@ -6,6 +6,21 @@
 
 @section('styles')
  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"/>
+
+ <style type="text/css">
+@-webkit-keyframes rotating {
+    from{
+        -webkit-transform: rotate(0deg);
+    }
+    to{
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+.rotating {
+    -webkit-animation: rotating 4s linear infinite;
+}
+ </style>
 @endsection
 
 @section('content')
@@ -73,7 +88,26 @@
 
         });
 
+
+        //  $(document).on('click', '.btn-update', function(e) {
+
+        //   e.preventDefault();
+
+        //   $(this).addClass('hide');
+
+        // });
+
     });/*End Ready*/
+
+    const addLoader = e => {
+
+      const button = e.target;
+
+      button.setAttribute('disabled', true);
+      button.setAttribute('read-only', true);
+      button.innerHTML = '<i class="fa fa-spinner rotating" aria-hidden="true"></i> Loading....'
+
+    }
 
   </script>
 @endsection

@@ -129,7 +129,7 @@ class UserRepository extends BaseRepository
                 <a href="#" data-id="'. $user->id .'" class="btn btn-outline-danger btn-xs delete-user-btn">
                     <i class="fa fa-trash"></i> Delete
                 </a>
-                <a href= "'. route('users.fetch', $user->id) .'"  class="btn btn-outline-success btn-xs">
+                <a href= "'. route('users.fetch', $user->id) .'"  class="btn btn-outline-success btn-xs" onclick="addLoader(event)">
                     <i class="fa fa-wrench"></i> Update 
                 </a>
                 <a href= "'. route('users.roles', $user->id) .'"  class="btn btn-outline-info btn-xs">
@@ -138,7 +138,7 @@ class UserRepository extends BaseRepository
                 ';
             } 
 
-            return '<a href= "'. route('users.fetch', $user->id) .'"  class="btn btn-success btn-xs">
+            return '<a href= "'. route('users.fetch', $user->id) .'"  class="btn btn-success btn-xs" onclick="addLoader(event)">
                     <i class="fa fa-wrench"></i> Update 
                 </a>';
         })

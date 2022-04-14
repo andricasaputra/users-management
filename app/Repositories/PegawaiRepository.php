@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\MasterPegawai as Pegawai;
+use App\Models\Wilker;
 use Illuminate\Support\Facades\Crypt;
 use App\Http\Resources\User as UserApi;
 
@@ -132,5 +133,19 @@ class PegawaiRepository extends BaseRepository
                 'message' => 'Internal Server Error with message : ' . $e->getMessage()
             ]);
         }
+    }
+
+    public function totalPegawai()
+    {
+        return Pegawai::get()->filter(function($p){
+            return $p->nama != 'administrator';
+        })->count();
+    }
+
+    public function totalWilker()
+    {
+        return Wilker::get()->filter(function($p){
+            return $p->nama_wilker != 'Laboratorium Induk';
+        })->count();
     }
 }

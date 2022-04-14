@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Repositories\PegawaiRepository;
 
 class HomeController extends Controller
 {
@@ -13,6 +14,13 @@ class HomeController extends Controller
 
     public function home()
     {
-    	return view('home');
+        $repo = new PegawaiRepository;
+
+        $totalPegawai = $repo->totalPegawai();
+        $totalWilker = $repo->totalWilker();
+
+    	return view('home')
+            ->withTotalPegawai($totalPegawai)
+            ->withTotalWilker($totalWilker);
     }
 }

@@ -100,9 +100,19 @@
             </a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="{{ route('pegawai.detail') }}">
+             @role('administrator')
+
+              <a class="nav-link" href="{{ route('pegawai.admin') }}">
                 <i class="ni ni-key-25 text-info"></i> Data Pegawai
               </a>
+
+             @else
+
+              <a class="nav-link" href="{{ route('pegawai.detail', ['nip' => auth()->user()->pegawai->nip]) }}">
+                <i class="ni ni-key-25 text-info"></i> Data Pegawai
+              </a>
+
+             @endrole
             </li>
           @role('administrator')
             <li class="nav-item">
