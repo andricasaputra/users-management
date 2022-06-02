@@ -24,7 +24,7 @@
                   </div>
                   <p class="mt-3 mb-0 text-muted text-sm">
                     <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> Sampai dengan</span>
-                    <span class="text-nowrap">{{ now()->format('d/m/y') }}</span>
+                    <span class="text-wrap">{{ now()->format('d/m/y') }}</span>
                   </p>
                 </div>
               </div>
@@ -45,7 +45,7 @@
                   </div>
                   <p class="mt-3 mb-0 text-muted text-sm">
                     <span class="text-primary mr-2"><i class="fa fa-arrow-up"></i>  Termasuk</span>
-                    <span class="text-nowrap">1 UPT Induk & Laboratorium</span>
+                    <span class="text-wrap">1 UPT Induk & Laboratorium</span>
                   </p>
                 </div>
               </div>
@@ -68,7 +68,7 @@
                   <p class="mt-3 mb-0 text-muted text-sm">
                     
                     @foreach($totalGolongan as $key => $golongan)
-                      <span class="text-nowrap"><b>{{ $key + 1 }}. {{ $golongan->golongan }} ({{ $golongan->total_golongan }})</b></span>
+                      <span class="text-wrap"><b>{{ $key + 1 }}. {{ $golongan->golongan }} ({{ $golongan->total_golongan }})</b></span>
                       <br>
                     @endforeach
                   </p>
@@ -93,7 +93,7 @@
                   <p class="mt-3 mb-0 text-muted text-sm">
                     
                     @foreach($totalJabatan as $key => $jabatan)
-                      <span class="text-nowrap"><b>{{ $key + 1 }}. {{ $jabatan->jabatan }} ({{ $jabatan->total_jabatan }})</b></span>
+                      <span class="text-wrap"><b>{{ $key + 1 }}. {{ $jabatan->jabatan }} ({{ $jabatan->total_jabatan }})</b></span>
                       <br>
                     @endforeach
                   </p>
