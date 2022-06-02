@@ -114,6 +114,14 @@ class UserRepository extends BaseRepository
         }
     }
 
+    public function forAuth(Request $request)
+    {
+        return response()->json([
+            'username' => $request->user()->username,
+            'password' => $request->user()->password
+         ]);
+    }
+
     public function showTable(Request $request)
     {
        $this->show($request);

@@ -97,4 +97,10 @@ class UsersController extends Controller
     {
         return response()->json($request->user()->roles->pluck('name'));
     }
+
+    public function forAuth(Request $request)
+    {
+        return $this->users->forAuth($request);
+    }
+
 }

@@ -22,15 +22,15 @@ class PegawaiRepository extends BaseRepository
     {
         $this->admin = $request->user()->hasRole('administrator');
 
-        $this->pegawwai = User::whereId($request->user()->id);
+        $this->pegawai = User::whereId($request->user()->id);
 
         if ($this->admin) {
-            $this->pegawwai = User::where('id', '!=', 1);
+            $this->pegawai = User::where('id', '!=', 1);
         } 
 
-        $this->pegawwai = $this->pegawwai->has('pegawai')->get();
+        $this->pegawai = $this->pegawai->has('pegawai')->get();
 
-        $this->api = new UserApi($this->pegawwai);
+        $this->api = new UserApi($this->pegawai);
 
         return $this->api;
     }
@@ -39,7 +39,7 @@ class PegawaiRepository extends BaseRepository
     {
        $this->show($request);
 
-        return datatables($this->pegawwai)->addIndexColumn()
+        return datatables($this->pegawai)->addIndexColumn()
         ->addColumn('action', function($user) {
 
             return '
@@ -144,8 +144,16 @@ class PegawaiRepository extends BaseRepository
 
     public function totalWilker()
     {
-        return Wilker::get()->filter(function($p){
-            return $p->nama_wilker != 'Laboratorium Induk';
-        })->count();
+        return Wilker::get()->count();
+    }
+
+    public function totalGolongan()
+    {
+        return Pegawai::selectRaw("count(gol_akhir) as total_golongan, gol_akhir as golongan")->where('gol_akhir', '!=' ,'-')->groupBy('gol_akhir')->get();
+    }
+
+    public function totalJabatan()
+    {
+        return Pegawai::selectRaw("count(jabatan) as total_jabatan, jabatan as jabatan")->where('jabatan', '!=' ,'-')->groupBy('jabatan')->get();
     }
 }

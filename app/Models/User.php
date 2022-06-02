@@ -29,7 +29,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'e_password', 'api_token'
+        'password', 'remember_token', 'e_password',
     ];
 
     protected $guard_name = 'api';

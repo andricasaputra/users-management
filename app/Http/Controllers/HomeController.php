@@ -18,9 +18,13 @@ class HomeController extends Controller
 
         $totalPegawai = $repo->totalPegawai();
         $totalWilker = $repo->totalWilker();
+        $totalGolongan = $repo->totalGolongan();
+        $totalJabatan = $repo->totalJabatan();
 
     	return view('home')
             ->withTotalPegawai($totalPegawai)
-            ->withTotalWilker($totalWilker);
+            ->withTotalWilker($totalWilker)
+            ->withTotalGolongan($totalGolongan)
+            ->withTotalJabatan($totalJabatan);
     }
 }

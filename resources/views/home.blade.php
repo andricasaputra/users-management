@@ -3,12 +3,12 @@
 @section('title', 'Home')
 
 @section('content')
-	<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8" style="height: 502px;">
+	<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8" style="height: 100vh; overflow-y: scroll;">
       <div class="container-fluid">
         <div class="header-body">
           <!-- Card stats -->
           <div class="row">
-            <div class="col-xl-3 col-lg-6">
+            <div class="col-6 col-lg-6">
               <div class="card card-stats mb-4 mb-xl-0">
                 <div class="card-body">
                   <div class="row">
@@ -29,7 +29,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-xl-3 col-lg-6">
+            <div class="col-xl-6 col-lg-6">
               <div class="card card-stats mb-4 mb-xl-0">
                 <div class="card-body">
                   <div class="row">
@@ -45,19 +45,19 @@
                   </div>
                   <p class="mt-3 mb-0 text-muted text-sm">
                     <span class="text-primary mr-2"><i class="fa fa-arrow-up"></i>  Termasuk</span>
-                    <span class="text-nowrap">1 UPT Induk</span>
+                    <span class="text-nowrap">1 UPT Induk & Laboratorium</span>
                   </p>
                 </div>
               </div>
             </div>
-{{-- 
-            <div class="col-xl-3 col-lg-6">
+
+            <div class="col-6 col-lg-6 mt-4">
               <div class="card card-stats mb-4 mb-xl-0">
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Sales</h5>
-                      <span class="h2 font-weight-bold mb-0">924</span>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Rincian Jumlah Golongan Pegawai</h5>
+                      <span class="h2 font-weight-bold mb-0">{{ $totalGolongan->count() }} Golongan</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
@@ -66,20 +66,23 @@
                     </div>
                   </div>
                   <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
-                    <span class="text-nowrap">Since yesterday</span>
+                    
+                    @foreach($totalGolongan as $key => $golongan)
+                      <span class="text-nowrap"><b>{{ $key + 1 }}. {{ $golongan->golongan }} ({{ $golongan->total_golongan }})</b></span>
+                      <br>
+                    @endforeach
                   </p>
                 </div>
               </div>
             </div>
 
-            <div class="col-xl-3 col-lg-6">
+            <div class="col-6 col-lg-6 mt-4">
               <div class="card card-stats mb-4 mb-xl-0">
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Performance</h5>
-                      <span class="h2 font-weight-bold mb-0">49,65%</span>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Rincian Jumlah Jabatan</h5>
+                      <span class="h2 font-weight-bold mb-0">{{ $totalJabatan->count() }} Jabatan</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-info text-white rounded-circle shadow">
@@ -88,12 +91,15 @@
                     </div>
                   </div>
                   <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
-                    <span class="text-nowrap">Since last month</span>
+                    
+                    @foreach($totalJabatan as $key => $jabatan)
+                      <span class="text-nowrap"><b>{{ $key + 1 }}. {{ $jabatan->jabatan }} ({{ $jabatan->total_jabatan }})</b></span>
+                      <br>
+                    @endforeach
                   </p>
                 </div>
               </div>
-            </div> --}}
+            </div>
           </div>
         </div>
       </div>

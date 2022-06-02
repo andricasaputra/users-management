@@ -22,16 +22,9 @@ class PegawaiController extends Controller
         return view('pegawai.index');
     }
 
-    public function show($nip)
+    public function show(Request $request)
     {
     	return $this->pegawai->show($request);
-    }
-
-    public function detailPegawai($id = 3)
-    {   
-        $user = \App\Models\User::find($id);
-
-        return response()->json($user);
     }
 
     public function detail($nip = null)

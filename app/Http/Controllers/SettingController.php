@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use \AppModels\\User;
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -20,16 +20,20 @@ class SettingController extends Controller
 		$admin = $request->user()->hasRole('administrator');
 
         if ($admin) {
-            $token = User::all()->map(function($users){
-            	return $users->api_token;
+            $token = User::all()->map(function($user){
+            	return $token = [
+                    'username' => $user->username,
+                    'api_token' => $user->api_token
+                ];
             });
         } else {
-        	$token = $request->user()->map(function($user){
-            	return $user->api_token;
-            });
+        	$token = [
+                'username' => $request->user()->username,
+                'api_token' => $request->user()->api_token
+            ];
         }
 
-        return $token;
+        return response()->json($token);
 	}
 
     /**
