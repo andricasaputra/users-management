@@ -23,10 +23,9 @@ Route::middleware('auth')->group(function(){
 	Route::prefix('pegawai')->group(function(){
 		Route::get('/', 'PegawaiController@index')->name('pegawai.index');
 
-
 		Route::get('show/{nip?}', 'PegawaiController@detail')->name('pegawai.detail');
 
-			Route::get('show-admin', 'PegawaiController@detailAdmin')->name('pegawai.admin')->middleware('admin');
+		Route::get('show-admin', 'PegawaiController@detailAdmin')->name('pegawai.admin')->middleware('admin');
 		
 		Route::post('fetch', 'PegawaiController@fetchAllSimAsnData')->name('pegawai.fetch');
 		Route::get('update/{pegawai}', 'PegawaiController@fetchSimAsnData')->name('pegawai.update');
